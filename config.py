@@ -8,7 +8,7 @@ import os
 # Azure SQL Database Connection
 DB_PASSWORD = 'Dilshan6116'  # REPLACE this with your actual database password
 DB_CONNECTION_STRING = (
-    'Driver={ODBC Driver 17 for SQL Server};'
+    'Driver={ODBC Driver 18 for SQL Server};'
     'Server=tcp:tharukatest.database.windows.net,1433;'
     'Database=DECORDIADB;'
     'Uid=tharuka;'
