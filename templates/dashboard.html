@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECORDIA app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header"
+            style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+            <h1 class="brand-title">DECORDIA app</h1>
+
+            <div class="user-menu" style="position: relative;">
+                <button id="user-menu-btn"
+                    style="background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--text-color);">
+                    👤
+                </button>
+                <div id="dropdown-menu" class="dropdown-content"
+                    style="display: none; position: absolute; right: 0; top: 100%; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; flex-direction: column; width: 120px; z-index: 1000; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <button id="settings-btn"
+                        style="background: none; border: none; padding: 10px; width: 100%; text-align: left; cursor: pointer; color: var(--text-color); border-bottom: 1px solid var(--border-color);">⚙️
+                        Settings</button>
+                    <button id="logout-btn"
+                        style="background: none; border: none; padding: 10px; width: 100%; text-align: left; cursor: pointer; color: #ff4d4d;">🚪
+                        Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <form id="image-form" enctype="multipart/form-data">
+
+                <div class="wireframe-grid">
+
+                    <!-- Column 1: Background -->
+                    <div class="grid-col">
+                        <h3>Background</h3>
+                        <div class="option-group">
+                            <label class="radio-label">
+                                <input type="radio" name="bg_choice" value="image" checked>
+                                <span class="radio-custom"></span>
+                                Image Upload
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="file" id="bg-file" name="bg_file" accept="image/*" class="styled-input">
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="radio-label">
+                                <input type="radio" name="bg_choice" value="text">
+                                <span class="radio-custom"></span>
+                                Text description
+                            </label>
+                            <div class="input-wrapper">
+                                <textarea id="bg-text" name="bg_text" rows="6" class="styled-input"
+                                    placeholder="Describe the scene..." disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Context -->
+                    <div class="grid-col">
+                        <h3>Context (optional)</h3>
+
+
+
+                        <div class="select-group">
+                            <label>Time of Day</label>
+                            <select id="time-of-day" name="time_of_day" class="styled-select">
+                                <option value="">Select...</option>
+                                <option value="Morning sun">Morning sun</option>
+                                <option value="Afternoon sun">Afternoon sun</option>
+                                <option value="Rainy day">Rainy day</option>
+                                <option value="Wintery day">Wintery day</option>
+                                <option value="Dusk">Dusk</option>
+                                <option value="Night time">Night time</option>
+                            </select>
+                        </div>
+
+                        <div class="select-group">
+                            <label>Lighting Effects</label>
+                            <select id="lighting-effects" name="lighting_effects" class="styled-select">
+                                <option value="">Select...</option>
+                                <option value="Strip ceiling lights">Strip ceiling lights</option>
+                                <option value="Low level lamp lighting">Low level lamp lighting</option>
+                                <option value="Ceiling lamp lighting">Ceiling lamp lighting</option>
+                                <option value="Uplighting">Uplighting</option>
+                                <option value="Festoon lighting">Festoon lighting</option>
+                                <option value="Theatrical lighting">Theatrical lighting</option>
+                            </select>
+                        </div>
+
+                        <div class="select-group">
+                            <label>Other dressings</label>
+                            <select id="other-dressings" name="other_dressings" class="styled-select">
+                                <option value="">Select...</option>
+                                <option value="Room furniture">Room furniture</option>
+                                <option value="Plants">Plants</option>
+                                <option value="People">People</option>
+                                <option value="Seasonal decorations">Seasonal decorations</option>
+                            </select>
+                        </div>
+
+
+                        <!-- Master Prompt moved inside Context -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;"><span
+                                    class="icon">✨</span> Master Art Direction</label>
+                            <p
+                                style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4;">
+                                Describe the overall design style or redesign instructions.
+                            </p>
+                            <textarea id="master-prompt" name="master_prompt" rows="3" class="styled-input"
+                                placeholder="E.g. Make it look like a cyberpunk cinematic scene..."></textarea>
+                        </div>
+
+                        <div class="select-group">
+                            <label>Result Image Quality</label>
+                            <select id="result-quality" name="result_quality" class="styled-select">
+                                <option value="low" selected>Low</option>
+                                <option value="median">Median</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Elements -->
+                    <div class="grid-col elements-col">
+                        <h3>Elements</h3>
+                        <div id="elements-list">
+                            <!-- Element 1 -->
+                            <div class="element-box" data-id="1">
+                                <h4>#1</h4>
+                                <div class="option-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="el1_choice" value="image" checked>
+                                        <span class="radio-custom"></span>
+                                        Image Upload
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="file" id="el1-file" name="el1_file" accept="image/*"
+                                            class="styled-input">
+                                    </div>
+                                </div>
+                                <div class="option-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="el1_choice" value="text">
+                                        <span class="radio-custom"></span>
+                                        Text description
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <textarea id="el1-text" name="el1_text" rows="3" class="styled-input"
+                                            placeholder="Element details" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="actions-row">
+                            <button type="button" id="add-element-btn" class="secondary-btn">Add new element</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Bottom Actions -->
+                <div class="form-bottom-actions">
+                    <a href="https://decordiaevents.com/" class="brand-link" target="_blank"
+                        rel="noopener noreferrer">https://decordiaevents.com/</a>
+                    <button type="submit" id="generate-btn" class="submit-btn primary-btn">
+                        <span class="btn-text">Create</span>
+                        <span class="loader" style="display: none;"></span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Result Area -->
+            <div class="result-area panel" style="margin-top: 3rem;">
+                <h2><span class="icon">🌌</span> Result</h2>
+                <div class="result-container" id="result-container">
+                    <div class="empty-state" id="empty-state">
+                        <div class="placeholder-icon">🔮</div>
+                        <p>Await Synthesis</p>
+                    </div>
+                    <img id="result-image" src="" alt="Generated Synthesis Output" style="display: none;">
+                    <div class="error-message" id="error-message" style="display: none;"></div>
+                </div>
+                <div class="result-actions" id="result-actions" style="display: none;">
+                    <button class="action-btn" id="download-btn">💾 Download Asset</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Settings Modal -->
+    <div id="settings-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="panel"
+            style="background: var(--bg-color); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; position: relative;">
+            <button id="close-modal-btn"
+                style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-color);">✖</button>
+            <h2 style="margin-bottom: 1.5rem;">⚙️ Settings</h2>
+
+            <form id="settings-form">
+                <div class="input-wrapper" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem;">OpenAI API Key</label>
+                    <input type="password" id="user-api-key" class="styled-input" placeholder="sk-proj-..." required>
+                </div>
+                <div id="settings-message" style="margin-bottom: 1rem; font-size: 0.9rem;"></div>
+                <button type="submit" class="submit-btn primary-btn"><span class="btn-text">Save API Key</span></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+
+</html>
