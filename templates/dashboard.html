@@ -39,29 +39,43 @@
 
                 <div class="wireframe-grid">
 
-                    <!-- Column 1: Background -->
-                    <div class="grid-col">
-                        <h3>Background</h3>
-                        <div class="option-group">
-                            <label class="radio-label">
-                                <input type="radio" name="bg_choice" value="image" checked>
-                                <span class="radio-custom"></span>
-                                Image Upload
-                            </label>
-                            <div class="input-wrapper">
-                                <input type="file" id="bg-file" name="bg_file" accept="image/*" class="styled-input">
+                    <!-- Column 1: Background & Result Image Quality -->
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div class="grid-col">
+                            <h3>Background</h3>
+                            <div class="option-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="bg_choice" value="image" checked>
+                                    <span class="radio-custom"></span>
+                                    Image Upload
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="file" id="bg-file" name="bg_file" accept="image/*" class="styled-input">
+                                </div>
+                            </div>
+
+                            <div class="option-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="bg_choice" value="text">
+                                    <span class="radio-custom"></span>
+                                    Text description
+                                </label>
+                                <div class="input-wrapper">
+                                    <textarea id="bg-text" name="bg_text" rows="6" class="styled-input"
+                                        placeholder="Describe the scene..." disabled></textarea>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="option-group">
-                            <label class="radio-label">
-                                <input type="radio" name="bg_choice" value="text">
-                                <span class="radio-custom"></span>
-                                Text description
-                            </label>
-                            <div class="input-wrapper">
-                                <textarea id="bg-text" name="bg_text" rows="6" class="styled-input"
-                                    placeholder="Describe the scene..." disabled></textarea>
+                        <!-- Result Image Quality Box -->
+                        <div class="grid-col">
+                            <h3>Result Image Quality</h3>
+                            <div class="select-group" style="margin-bottom: 0;">
+                                <select id="result-quality" name="result_quality" class="styled-select">
+                                    <option value="low" selected>Low</option>
+                                    <option value="median">Median</option>
+                                    <option value="high">High</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -110,25 +124,18 @@
                         </div>
 
 
+
+
                         <!-- Master Prompt moved inside Context -->
                         <div style="margin-bottom: 1.5rem;">
                             <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;"><span
-                                    class="icon">✨</span> Master Art Direction</label>
+                                    class="icon"></span> Design style</label>
                             <p
                                 style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4;">
                                 Describe the overall design style or redesign instructions.
                             </p>
                             <textarea id="master-prompt" name="master_prompt" rows="3" class="styled-input"
                                 placeholder="E.g. Make it look like a cyberpunk cinematic scene..."></textarea>
-                        </div>
-
-                        <div class="select-group">
-                            <label>Result Image Quality</label>
-                            <select id="result-quality" name="result_quality" class="styled-select">
-                                <option value="low" selected>Low</option>
-                                <option value="median">Median</option>
-                                <option value="high">High</option>
-                            </select>
                         </div>
                     </div>
 
