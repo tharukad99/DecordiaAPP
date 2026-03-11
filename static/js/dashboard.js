@@ -147,12 +147,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Add New Element block logic
     const elementsList = document.getElementById('elements-list');
     document.getElementById('add-element-btn').addEventListener('click', () => {
+        const currentElements = document.querySelectorAll('.element-box').length;
+        if (currentElements >= 9) {
+            alert("Maximum of 9 elements allowed.");
+            return;
+        }
         elementCount++;
         const newEl = document.createElement('div');
         newEl.className = 'element-box';
         newEl.dataset.id = elementCount;
         newEl.innerHTML = `
-            <h4>#${elementCount}</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="margin: 0; color: var(--text-secondary);">#${elementCount}</h4>
+                <button type="button" class="remove-element-btn" style="background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 0.9rem; font-weight: 600;">✖ Remove</button>
+            </div>
             <div class="option-group">
                 <label class="radio-label">
                     <input type="radio" name="el${elementCount}_choice" value="image" checked>
@@ -175,6 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         elementsList.appendChild(newEl);
+    });
+
+    // 2.5 Event Delegation for remove button
+    elementsList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-element-btn')) {
+            const box = e.target.closest('.element-box');
+            if (box) box.remove();
+        }
     });
 
     // 3. Form Submission API Logic
@@ -333,9 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Validate strictly 2 files
-        if (imageFiles.length !== 2) {
-            errorMessage.textContent = `API requires exactly 2 images (You selected ${imageFiles.length}). Please upload exactly 1 Background image and 1 Element image.`;
+        // Validate between 1 and 10 files
+        if (imageFiles.length < 1 || imageFiles.length > 10) {
+            errorMessage.textContent = `API requires between 1 and 10 images (You selected ${imageFiles.length}). Please upload 1 Background image and up to 9 Element images.`;
             errorMessage.style.display = 'block';
             emptyState.style.display = 'flex';
             btn.disabled = false;
@@ -358,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Forward to the NEW mapped API Endpoint you requested!
             const token = localStorage.getItem('authToken');
-            const response = await fetch('/api/edit-image', {
+            const response = await fetch('/api/edit-image-multiple', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -369,20 +385,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             // Error Checking
-            if (!response.ok) {
+            if (!response.ok || !data.success) {
                 let apiErrorObj = 'Unknown rendering error occurred';
                 if (data.details && data.details.error && data.details.error.message) {
                     apiErrorObj = data.details.error.message;
                 } else if (data.error) {
                     apiErrorObj = typeof data.error === 'string' ? data.error : JSON.stringify(data.error);
+                } else if (data.openai_error && data.openai_error.error && data.openai_error.error.message) {
+                    apiErrorObj = data.openai_error.error.message;
                 }
                 throw new Error(apiErrorObj);
             }
 
-            // Success Mapping
-            if (data.data && data.data[0]) {
-                const imgData = data.data[0];
-                let encodedSrc = imgData.b64_json ? 'data:image/png;base64,' + imgData.b64_json : imgData.url;
+            // Success Mapping for multiple image API endpoint structure
+            if (data.image_base64 || data.image_url) {
+                let encodedSrc = data.image_base64 ? 'data:image/png;base64,' + data.image_base64 : data.image_url;
 
                 resultImage.src = encodedSrc;
                 resultImage.style.display = 'block';
