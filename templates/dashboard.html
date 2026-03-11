@@ -14,7 +14,11 @@
         <!-- Header -->
         <header class="app-header"
             style="display: flex; justify-content: space-between; align-items: center; position: relative;">
-            <h1 class="brand-title">DECORDIA app</h1>
+            <h1 class="brand-title" style="display: flex; align-items: center;">
+                DE<img src="{{ url_for('static', filename='img/logo-decodia.png') }}" alt="C"
+                    style="height: 0.9em; margin: 0 0.05em; vertical-align: middle; transform: translateY(-3%);">ORDIA
+                APP
+            </h1>
 
             <div class="user-menu" style="position: relative;">
                 <button id="user-menu-btn"
@@ -50,7 +54,8 @@
                                     Image Upload
                                 </label>
                                 <div class="input-wrapper">
-                                    <input type="file" id="bg-file" name="bg_file" accept="image/*" class="styled-input">
+                                    <input type="file" id="bg-file" name="bg_file" accept="image/*"
+                                        class="styled-input">
                                 </div>
                             </div>
 
