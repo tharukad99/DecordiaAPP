@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - DECODIAapp
+name: Build and deploy Python app to Azure Web App - DecodiaApp
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.13'
 
       # 🛠️ Local Build Section (Optional)
       # The following section in your workflow is designed to catch build issues early on the client side, before deployment. This can be helpful for debugging and validation. However, if this step significantly increases deployment time and early detection is not critical for your workflow, you may remove this section to streamline the deployment process.
@@ -63,14 +63,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_55C506F563414D68AAB5863CA7FC5397 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_34B76C970D584F5688B439CE864E17A9 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A3E8DDAAF307490EABB5C3DDB0C59944 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9E8BA635E39D444484633E549152BBE8 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6732C9EDD0834AC3BA6944BFE66A784E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9B8AE0944BCD422987DAB309E68CFA55 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'DECODIAapp'
+          app-name: 'DecodiaApp'
           slot-name: 'Production'
           
