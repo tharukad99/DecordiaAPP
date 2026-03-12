@@ -186,7 +186,7 @@ input[type="file"].styled-input {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 /* Elements list */
@@ -240,6 +240,7 @@ input[type="file"].styled-input {
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     text-transform: uppercase;
     box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2);
@@ -317,10 +318,6 @@ input[type="file"].styled-input {
 }
 
 .error-message {
-    position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    right: 2rem;
     background: var(--error-bg);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #fca5a5;

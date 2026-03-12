@@ -46,8 +46,11 @@
 <body>
     <div class="app-container">
         <main class="main-content auth-container panel">
-            <h1 class="brand-title">DECORDIA app</h1>
-            <h2>Register</h2>
+            <h1 class="brand-title" style="display: flex; align-items: center; justify-content: center;">
+                DE<img src="{{ url_for('static', filename='img/logo-decodia.png') }}" alt="C"
+                    style="height: 0.9em; margin: 0 0.05em; vertical-align: middle; transform: translateY(-3%);">ORDIA
+            </h1>
+            <!-- <h2>Register</h2> -->
             <form id="register-form" class="auth-form">
                 <input type="text" id="username" placeholder="Username" required>
                 <input type="email" id="email" placeholder="Email Address" required>

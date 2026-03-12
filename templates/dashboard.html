@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DECORDIA app</title>
+    <title>DECORDIA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -17,7 +17,7 @@
             <h1 class="brand-title" style="display: flex; align-items: center;">
                 DE<img src="{{ url_for('static', filename='img/logo-decodia.png') }}" alt="C"
                     style="height: 0.9em; margin: 0 0.05em; vertical-align: middle; transform: translateY(-3%);">ORDIA
-                APP
+
             </h1>
 
             <div class="user-menu" style="position: relative;">
@@ -39,6 +39,7 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <div class="error-message" id="error-message" style="display: none; margin-bottom: 2rem; position: relative; inset: auto;"></div>
             <form id="image-form" enctype="multipart/form-data">
 
                 <div class="wireframe-grid">
@@ -118,7 +119,7 @@
                         </div>
 
                         <div class="select-group">
-                            <label>Other dressings</label>
+                            <label>Other Dressings</label>
                             <select id="other-dressings" name="other_dressings" class="styled-select">
                                 <option value="">Select...</option>
                                 <option value="Room furniture">Room furniture</option>
@@ -133,14 +134,11 @@
 
                         <!-- Master Prompt moved inside Context -->
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;"><span
+                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;"><span
                                     class="icon"></span> Design style</label>
-                            <p
-                                style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4;">
-                                Describe the overall design style or redesign instructions.
-                            </p>
+
                             <textarea id="master-prompt" name="master_prompt" rows="3" class="styled-input"
-                                placeholder="E.g. Make it look like a cyberpunk cinematic scene..."></textarea>
+                                placeholder="Describe the overall design style or redesign instructions."></textarea>
                         </div>
                     </div>
 
@@ -183,8 +181,6 @@
 
                 <!-- Form Bottom Actions -->
                 <div class="form-bottom-actions">
-                    <a href="https://decordiaevents.com/" class="brand-link" target="_blank"
-                        rel="noopener noreferrer">https://decordiaevents.com/</a>
                     <button type="submit" id="generate-btn" class="submit-btn primary-btn">
                         <span class="btn-text">Create</span>
                         <span class="loader" style="display: none;"></span>
@@ -193,18 +189,16 @@
             </form>
 
             <!-- Result Area -->
-            <div class="result-area panel" style="margin-top: 3rem;">
-                <h2><span class="icon">🌌</span> Result</h2>
+            <div class="result-area panel" id="result-area" style="margin-top: 3rem; display: none;">
+                <h2>Result</h2>
                 <div class="result-container" id="result-container">
                     <div class="empty-state" id="empty-state">
-                        <div class="placeholder-icon">🔮</div>
                         <p>Await Synthesis</p>
                     </div>
                     <img id="result-image" src="" alt="Generated Synthesis Output" style="display: none;">
-                    <div class="error-message" id="error-message" style="display: none;"></div>
                 </div>
                 <div class="result-actions" id="result-actions" style="display: none;">
-                    <button class="action-btn" id="download-btn">💾 Download Asset</button>
+                    <button class="action-btn" id="download-btn">Download Asset</button>
                 </div>
             </div>
         </main>

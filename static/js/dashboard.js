@@ -204,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
     const resultActions = document.getElementById('result-actions');
     const downloadBtn = document.getElementById('download-btn');
+    const resultArea = document.getElementById('result-area');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -213,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnText.textContent = 'Synthesizing...';
         loader.style.display = 'inline-block';
 
+        if (resultArea) resultArea.style.display = 'block';
+        
         emptyState.style.display = 'none';
         resultImage.style.display = 'none';
         errorMessage.style.display = 'none';
